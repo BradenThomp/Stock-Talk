@@ -1,0 +1,9 @@
+# Visual Studio Folders 
+.vs
+.vscode
+
+# Python
+__pycache__/
+
+## Settings
+settings.py

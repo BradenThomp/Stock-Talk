@@ -1,7 +1,7 @@
 settings = {
     # Reddit application connection. See https://ssl.reddit.com/prefs/apps/ for details.
     'reddit_con': {
-        'id': 'test',
+        'id': '',
         'secret': '',
         'agent': '',
     },

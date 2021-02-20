@@ -6,4 +6,4 @@
 __pycache__/
 
 ## Settings
-settings.py
+datacollection/src/settings.py

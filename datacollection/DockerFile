@@ -1,0 +1,20 @@
+# Set base image.
+FROM python:3.8
+
+# Set the working directory
+# For whatever reason, running python in a container sets rela
+WORKDIR /build/src
+
+# Copy the dependancies.
+COPY requirements.txt .
+
+# Install dependancies.
+RUN pip install -r requirements.txt
+
+# Copy to /build/src
+COPY src/ .
+# Copy to /build/data
+COPY data/ ../data
+
+# Run the program.
+ENTRYPOINT ["python","-u","./main.py"]

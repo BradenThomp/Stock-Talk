@@ -1,0 +1,18 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type DailyStockReportDto {
+  ticker: String!
+  date: String!
+  location: String!
+  num_comments: Int!
+  score: Int!
+  avg_compound: Float!
+  sentiment: String!
+}
+
+type Query {
+  myTest: [String!]!
+  getDailyStockReports: [DailyStockReportDto!]!
+}

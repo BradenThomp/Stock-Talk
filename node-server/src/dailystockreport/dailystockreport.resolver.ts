@@ -10,7 +10,7 @@ export class DailyStockReportResolver {
 
   @Query(() => [String])
   async myTest() {
-    const array = ['Nigga', 'Is', 'Buggy'];
+    const array = ['This', 'Is', 'a', 'test'];
     return array;
   }
 

@@ -4,8 +4,8 @@ export interface DailyStockReport extends Document {
   readonly ticker: string;
   readonly date: string;
   readonly location: string;
-  readonly num_comments: number;
+  readonly numComments: number;
   readonly score: number;
-  readonly avg_compound: number;
+  readonly avgCompound: number;
   readonly sentiment: string;
 }

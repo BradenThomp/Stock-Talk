@@ -9,7 +9,7 @@ import { DailyStockReportModule } from './dailystockreport/dailystockreport.modu
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/StockTalk'),
+    MongooseModule.forRoot('mongodb://localhost:27017/stockTalk'),
   ],
 })
 export class AppModule {}

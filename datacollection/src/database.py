@@ -7,17 +7,17 @@ from comment import Comment
 
 client = pymongo.MongoClient(settings.settings['mongo_con']['ip'])
 
-db = client['StockTalk']
+db = client['stockTalk']
 
 stocks_col = db['stocks']
 comments_col = db['comments']
-daily_stock_reports_col = db['daily_stock_reports']
+daily_stock_reports_col = db['dailyStockReports']
 
 
 def wipe():
     """Drops the database, useful for testing.
     """
-    client.drop_database('StockTalk')
+    client.drop_database('stockTalk')
 
 
 def initialize_indices():
@@ -97,9 +97,9 @@ def get_daily_report(date, ticker, location):
         return DailyStockReport(report_doc['ticker'],
                                 report_doc['date'],
                                 report_doc['location'],
-                                report_doc['num_comments'],
+                                report_doc['numComments'],
                                 report_doc['score'],
-                                report_doc['avg_compound'],
+                                report_doc['avgCompound'],
                                 report_doc['sentiment'])
 
 
@@ -113,9 +113,9 @@ def add_daily_report(daily_report):
         "ticker": daily_report.ticker,
         "date": daily_report.date,
         "location": daily_report.location,
-        "num_comments": daily_report.num_comments,
+        "numComments": daily_report.num_comments,
         "score": daily_report.score,
-        "avg_compound": daily_report.avg_compound,
+        "avgCompound": daily_report.avg_compound,
         "sentiment": daily_report.sentiment
     }
     daily_stock_reports_col.insert_one(mydict)
@@ -134,9 +134,9 @@ def update_daily_report(daily_report):
     }
     new_values = {
         "$set": {
-            'avg_compound': daily_report.avg_compound,
+            'avgCompound': daily_report.avg_compound,
             'sentiment': daily_report.sentiment,
-            'num_comments': daily_report.num_comments,
+            'numComments': daily_report.num_comments,
             'score': daily_report.score
         }
     }
@@ -164,7 +164,7 @@ def get_comment(id, ticker):
                        comment_doc['id'],
                        comment_doc['location'],
                        comment_doc['ticker'],
-                       comment_doc['date_time'],
+                       comment_doc['dateTime'],
                        comment_doc['compound'],
                        comment_doc['sentiment'])
 
@@ -190,7 +190,7 @@ def add_comment(comment):
         "ticker": comment.ticker,
         "id": comment.id,
         "location": comment.location,
-        "date_time": comment.date_time,
+        "dateTime": comment.date_time,
         "body": comment.body,
         "author": comment.author,
         "score": comment.score,

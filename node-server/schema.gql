@@ -6,13 +6,12 @@ type DailyStockReportDto {
   ticker: String!
   date: String!
   location: String!
-  num_comments: Int!
+  numComments: Int!
   score: Int!
-  avg_compound: Float!
+  avgCompound: Float!
   sentiment: String!
 }
 
 type Query {
-  myTest: [String!]!
   getDailyStockReports: [DailyStockReportDto!]!
 }

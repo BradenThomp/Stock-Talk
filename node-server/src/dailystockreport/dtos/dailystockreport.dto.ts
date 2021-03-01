@@ -9,11 +9,11 @@ export class DailyStockReportDto {
   @Field()
   readonly location: string;
   @Field(() => Int)
-  readonly num_comments: number;
+  readonly numComments: number;
   @Field(() => Int)
   readonly score: number;
   @Field(() => Float)
-  readonly avg_compound: number;
+  readonly avgCompound: number;
   @Field()
   readonly sentiment: string;
 }

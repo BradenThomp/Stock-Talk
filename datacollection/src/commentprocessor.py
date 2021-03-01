@@ -1,10 +1,10 @@
-import sentimentanalysis as sa
 from comment import Comment
-import re
-import database as db
 from datetime import datetime
 from dailystockreport import DailyStockReport
 
+import re
+import database as db
+import sentimentanalysis as sa
 
 # Get and cache all stock tickers from the database.
 stocks = db.get_stocks()
@@ -33,7 +33,7 @@ def process_reddit_comment(reddit_comment):
         if findWholeWord(stock.ticker)(reddit_comment.body) is not None:
             # Convert reddit comment into application comment.
             comment = Comment(reddit_comment.body, reddit_comment.author.name, reddit_comment.score, reddit_comment.id,
-                              "r/{0}".format(reddit_comment.subreddit.display_name), stock.ticker, reddit_comment.created_utc)
+                              "r/{0}".format(reddit_comment.subreddit.display_name), stock.ticker, datetime.fromtimestamp(reddit_comment.created_utc))
             process_comment(comment)
 
 
@@ -92,7 +92,8 @@ def process_comment_into_daily_report(comment, update_func):
         comment: The comment to process into a daily report.
         update_func: The function that will be called to update the daily report.
     """
-    date = datetime.fromisoformat(comment.date_time).date().isoformat()
+    date = datetime(
+        comment.date_time.year, comment.date_time.month, comment.date_time.day, 0, 0)
     daily_report = db.get_daily_report(date, comment.ticker, comment.location)
 
     if daily_report == None:

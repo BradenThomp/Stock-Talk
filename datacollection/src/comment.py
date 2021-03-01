@@ -2,14 +2,14 @@ import datetime
 
 
 class Comment:
-    def __init__(self, body, author, score, id, location, ticker, timestamp, compound=0, sentiment=''):
+    def __init__(self, body, author, score, id, location, ticker, date_time, compound=0, sentiment=''):
         self.body = body
         self.author = author
         self.score = score
         self.id = id
         self.location = location
         self.ticker = ticker
-        self.date_time = datetime.datetime.fromtimestamp(timestamp).isoformat()
+        self.date_time = date_time
         self.compound = 0
         self.sentiment = ''
 

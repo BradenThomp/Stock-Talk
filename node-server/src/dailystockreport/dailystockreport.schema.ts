@@ -5,10 +5,10 @@ export const DailyStockReportSchema = new mongoose.Schema(
     ticker: String,
     date: String,
     location: String,
-    num_comments: Number,
+    numComments: Number,
     score: Number,
-    avg_compound: Number,
+    avgCompound: Number,
     sentiment: String,
   },
-  { collection: 'daily_stock_reports' },
+  { collection: 'dailyStockReports' },
 );

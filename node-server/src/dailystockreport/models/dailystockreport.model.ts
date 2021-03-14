@@ -10,7 +10,7 @@ import {
 export class DailyStockReport {
   @Field()
   readonly ticker: string;
-  @Field(() => GraphQLISODateTime, { nullable: true })
+  @Field(() => GraphQLISODateTime)
   readonly date: Date;
   @Field()
   readonly location: string;

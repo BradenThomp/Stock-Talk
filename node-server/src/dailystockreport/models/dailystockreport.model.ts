@@ -1,11 +1,17 @@
-import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
+import {
+  ObjectType,
+  Field,
+  Int,
+  Float,
+  GraphQLISODateTime,
+} from '@nestjs/graphql';
 
 @ObjectType()
-export class DailyStockReportDto {
+export class DailyStockReport {
   @Field()
   readonly ticker: string;
-  @Field()
-  readonly date: string;
+  @Field(() => GraphQLISODateTime, { nullable: true })
+  readonly date: Date;
   @Field()
   readonly location: string;
   @Field(() => Int)

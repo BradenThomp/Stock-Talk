@@ -1,6 +1,6 @@
 import { Resolver, Query } from '@nestjs/graphql';
 import { DailyStockReportService } from './dailystockreport.service';
-import { DailyStockReportDto } from './dtos/dailystockreport.dto';
+import { DailyStockReport } from './models/dailystockreport.model';
 
 @Resolver()
 export class DailyStockReportResolver {
@@ -8,7 +8,7 @@ export class DailyStockReportResolver {
     private readonly dailyStockReportService: DailyStockReportService,
   ) {}
 
-  @Query(() => [DailyStockReportDto])
+  @Query(() => [DailyStockReport])
   async getDailyStockReports() {
     return this.dailyStockReportService.findAll();
   }

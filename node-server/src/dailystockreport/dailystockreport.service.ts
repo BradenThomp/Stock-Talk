@@ -11,6 +11,8 @@ export class DailyStockReportService {
   ) {}
 
   async findAll(): Promise<DailyStockReport[]> {
-    return await this.dailyStockReportModel.find().exec();
+    const model = await this.dailyStockReportModel.find().exec();
+    console.log(model);
+    return model;
   }
 }

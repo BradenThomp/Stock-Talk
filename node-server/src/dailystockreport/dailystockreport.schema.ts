@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 export const DailyStockReportSchema = new mongoose.Schema(
   {
     ticker: String,
-    date: String,
+    date: Date,
     location: String,
     numComments: Number,
     score: Number,

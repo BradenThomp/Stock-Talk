@@ -2,10 +2,9 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type DailyStockReport {
+type StockSentimentDto {
   ticker: String!
-  date: DateTime!
-  location: String!
+  location: DateTime!
   numComments: Int!
   score: Int!
   avgCompound: Float!
@@ -18,5 +17,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  getDailyStockReports: [DailyStockReport!]!
+  getDailyStockReports: [StockSentimentDto!]!
+  getDailyStockReportsForDateRange(upperDate: DateTime!, lowerDate: DateTime!): [StockSentimentDto!]!
 }

@@ -10,6 +10,18 @@ export class DailyStockReportService {
     private readonly dailyStockReportModel: Model<DailyStockReport>,
   ) {}
 
+  async findAllForDateRange(
+    lowerDate: Date,
+    upperDate: Date,
+  ): Promise<DailyStockReport[]> {
+    return await this.dailyStockReportModel.find({
+      date: {
+        $gte: lowerDate,
+        $lte: upperDate,
+      },
+    });
+  }
+
   async findAll(): Promise<DailyStockReport[]> {
     return await this.dailyStockReportModel.find().exec();
   }

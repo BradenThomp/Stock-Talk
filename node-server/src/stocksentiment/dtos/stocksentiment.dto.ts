@@ -7,12 +7,10 @@ import {
 } from '@nestjs/graphql';
 
 @ObjectType()
-export class DailyStockReport {
+export class StockSentimentDto {
   @Field()
   readonly ticker: string;
   @Field(() => GraphQLISODateTime)
-  readonly date: Date;
-  @Field()
   readonly location: string;
   @Field(() => Int)
   readonly numComments: number;

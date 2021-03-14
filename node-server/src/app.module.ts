@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import { DailyStockReportModule } from './dailystockreport/dailystockreport.module';
+import { StockSentimentModule } from './stocksentiment/stocksentiment.module';
 
 @Module({
   imports: [
-    DailyStockReportModule,
+    StockSentimentModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),

@@ -4,10 +4,9 @@
 
 type StockSentimentDto {
   ticker: String!
-  location: DateTime!
-  numComments: Int!
-  score: Int!
-  avgCompound: Float!
+  totalNumberOfMentions: DateTime!
+  totalScore: Int!
+  averageCompound: Float!
   sentiment: String!
 }
 
@@ -17,6 +16,5 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  getDailyStockReports: [StockSentimentDto!]!
-  getDailyStockReportsForDateRange(upperDate: DateTime!, lowerDate: DateTime!): [StockSentimentDto!]!
+  getStockSentiment(subreddit: String, numDays: Float!): [StockSentimentDto!]!
 }

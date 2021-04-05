@@ -23,7 +23,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'linebreak-style': ['error', 'windows'],
     "prettier/prettier": ["error", {
-     "endOfLine":"auto"
+     "endOfLine":"auto",
+     "printWidth": 180
    }],
   },
 };

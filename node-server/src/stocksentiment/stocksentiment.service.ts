@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { DailyStockReport } from './interfaces/dailystockreport.interface';
+import { DailyStockReport } from '../dailystockreport/interfaces/dailystockreport.interface';
 import { StockSentiment } from './models/stocksentiment.model';
 
 @Injectable()

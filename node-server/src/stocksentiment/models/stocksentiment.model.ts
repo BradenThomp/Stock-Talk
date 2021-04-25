@@ -1,4 +1,4 @@
-import { DailyStockReport } from '../interfaces/dailystockreport.interface';
+import { DailyStockReport } from '../../dailystockreport/interfaces/dailystockreport.interface';
 
 export class StockSentiment {
   readonly ticker: string;

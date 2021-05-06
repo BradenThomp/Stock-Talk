@@ -8,9 +8,10 @@ const client = new ApolloClient({
 export default client;
 
 export const GET_STOCK_SENTIMENT = gql`
-  query GetStockSentiment($numDays: Float!){
-    getStockSentiment(numDays: $numDays){
+  query StockSentiment($numDays: Float!){
+    StockSentiment(numDays: $numDays){
       ticker,
+      totalNumberOfMentions,
       totalScore,
       averageCompound,
       sentiment

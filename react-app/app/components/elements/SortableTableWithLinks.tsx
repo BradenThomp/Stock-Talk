@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { TablePagination, TableSortLabel } from "@material-ui/core";
+import Link from 'next/link';
 
 const useStyles = makeStyles({
   root: {
@@ -20,12 +21,17 @@ const useStyles = makeStyles({
 
 interface Props{
   readonly columns: Column[];
-  readonly rows: any;
+  readonly rows: LinkableRow[];
 }
 
 export interface Column{
   key: any;
   label: any;
+}
+
+export interface LinkableRow{
+  link: any;
+  data: any;
 }
 
 function descendingComparator(a, b, orderBy) {
@@ -54,7 +60,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function SortableTable(props: Props){
+export default function SortableTableWithLinks(props: Props){
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -94,16 +100,18 @@ export default function SortableTable(props: Props){
           <TableBody>
             {stableSort(props.rows, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => {
               return (
-                <TableRow hover>
-                  {props.columns.map((column: Column) => {
-                    const value = row[column.key];
-                    return(
-                      <TableCell key={column.key}>
-                        {value}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
+                <Link href={row.link} passHref>
+                  <TableRow hover>
+                      {props.columns.map((column: Column) => {
+                        const value = row.data[column.key];
+                        return(
+                          <TableCell key={column.key}>
+                            {value}
+                          </TableCell>
+                        );
+                      })}
+                  </TableRow>
+                </Link>
               );
             })}
           </TableBody>

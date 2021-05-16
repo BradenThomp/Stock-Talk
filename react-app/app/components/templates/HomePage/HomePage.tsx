@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { GET_STOCK_SENTIMENT } from "../../../api/apollo-client";
-import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import SortableTable from "../../modules/SortableTable";
-import { Column } from "../../modules/SortableTable";
+import SortableTable from "../../elements/SortableTableWithLinks";
+import { Column, LinkableRow } from "../../elements/SortableTableWithLinks";
+import { useState } from "react";
+import TimePeriodSelection, { Period } from "../../elements/TimePeriodSelection";
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +24,7 @@ const columns:Column[] = [
 ];
 
 export default function HomePage(){
-  const numDays = 365;
+  const [numDays, setNumDays] = useState<Period>(365);
 
   const {data, loading, error} = useQuery(GET_STOCK_SENTIMENT, {
     variables: { numDays },
@@ -43,8 +44,17 @@ export default function HomePage(){
   }
 
   const rows = data.StockSentiment;
-  console.log(rows[0]['ticker']);
+  const linkableRows = rows.map(row => {
+    const linkableRow: LinkableRow = {
+      data: row,
+      link: '/stock/' + row['ticker'],
+    } 
+    return linkableRow;
+  });
   return(
-    <SortableTable rows={rows} columns={columns}/>
+    <div>
+      <TimePeriodSelection period={numDays} updatePeriod={setNumDays}/>
+      <SortableTable rows={linkableRows} columns={columns}/>
+    </div>
   );
 }

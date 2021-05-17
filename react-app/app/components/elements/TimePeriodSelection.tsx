@@ -1,6 +1,14 @@
-import { InputLabel, MenuItem, Select } from "@material-ui/core";
+import { FormControl, InputLabel, makeStyles, MenuItem, Select } from "@material-ui/core";
 
-enum Period {
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    maxWidth: 200,
+  }
+}));
+
+export enum Period {
   OneDay = 1,
   FiveDays = 5, 
   OneMonth = 31,
@@ -15,12 +23,14 @@ interface Props{
 }
 
 export default function TimePeriodSelection(props: Props){
+  const classes = useStyles();
+
   const handleDayChanged = (event) => {
     props.updatePeriod(event.target.value);
   }
 
   return(
-    <div>
+    <FormControl className={classes.formControl}>
       <InputLabel id="period-label">Period</InputLabel>
       <Select labelId="period-label" id="period-select" value={props.period} onChange={handleDayChanged}>
         <MenuItem value={Period.OneDay}>1 Day</MenuItem>
@@ -30,7 +40,7 @@ export default function TimePeriodSelection(props: Props){
         <MenuItem value={Period.OneYear}>1 Year</MenuItem>
         <MenuItem value={Period.FiveYears}>5 Years</MenuItem>
       </Select>
-    </div>
+    </FormControl>
   );
 }
 

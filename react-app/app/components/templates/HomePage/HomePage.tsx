@@ -5,6 +5,7 @@ import SortableTable from "../../elements/SortableTableWithLinks";
 import { Column, LinkableRow } from "../../elements/SortableTableWithLinks";
 import { useState } from "react";
 import TimePeriodSelection, { Period } from "../../elements/TimePeriodSelection";
+import SubredditSelection from "../../elements/SubredditSelection";
 
 const useStyles = makeStyles({
   root: {
@@ -25,9 +26,12 @@ const columns:Column[] = [
 
 export default function HomePage(){
   const [numDays, setNumDays] = useState<Period>(365);
+  const [subreddits, setSubreddits] = useState<string[]>(['r/stocks']);
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+  const [orderBy, setOrderBy] = useState<string>(null);
 
   const {data, loading, error} = useQuery(GET_STOCK_SENTIMENT, {
-    variables: { numDays },
+    variables: { numDays, subreddits },
   });
 
   if(loading){
@@ -54,7 +58,8 @@ export default function HomePage(){
   return(
     <div>
       <TimePeriodSelection period={numDays} updatePeriod={setNumDays}/>
-      <SortableTable rows={linkableRows} columns={columns}/>
+      <SubredditSelection subreddits={subreddits} updateSubreddits={setSubreddits}/>
+      <SortableTable rows={linkableRows} columns={columns} order={order} setOrder={setOrder} orderBy={orderBy} setOrderBy={setOrderBy}/>
     </div>
   );
 }

@@ -11,5 +11,5 @@ type StockSentimentDto {
 }
 
 type Query {
-  StockSentiment(subreddit: String, numDays: Float!): [StockSentimentDto!]!
+  StockSentiment(subreddits: [String!]!, numDays: Float!): [StockSentimentDto!]!
 }

@@ -11,13 +11,13 @@ export class StockSentimentService {
     private readonly dailyStockReportModel: Model<DailyStockReport>,
   ) {}
 
-  async getStockSentiment(numDays: number, subreddit?: string): Promise<StockSentiment[]> {
+  async getStockSentiment(numDays: number, subreddits: string[]): Promise<StockSentiment[]> {
     const todayUTC = new Date();
     todayUTC.setHours(0, 0, 0, 0);
     const oldestPossibleDate = new Date(todayUTC.getTime() - (numDays - 1) * 24 * 60 * 60 * 1000);
 
     let dailyStockReports = null;
-    if (subreddit == undefined) {
+    if (subreddits.length === 0) {
       dailyStockReports = await this.dailyStockReportModel
         .find({
           date: {
@@ -32,7 +32,7 @@ export class StockSentimentService {
             $gte: oldestPossibleDate,
           },
           location: {
-            $eq: subreddit,
+            $in: subreddits,
           },
         })
         .exec();

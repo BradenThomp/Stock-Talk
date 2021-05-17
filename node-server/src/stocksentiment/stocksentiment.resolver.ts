@@ -7,7 +7,7 @@ export class StockSentimentResolver {
   constructor(private readonly stockSentimentService: StockSentimentService) {}
 
   @Query(() => [StockSentimentDto])
-  async StockSentiment(@Args('numDays') numDays: number, @Args('subreddit', { nullable: true }) subreddit?: string) {
-    return this.stockSentimentService.getStockSentiment(numDays, subreddit);
+  async StockSentiment(@Args('numDays') numDays: number, @Args('subreddits', { type: () => [String] }) subreddits: string[]) {
+    return this.stockSentimentService.getStockSentiment(numDays, subreddits);
   }
 }

@@ -1,6 +1,6 @@
 # Stock Talk
 Stock talk is a service that monitors social media such as Reddit for mentions of stock tickers.
-It allows users to watch for tickers and ticker sentiment.
+It allows users to watch for tickers and ticker sentiment. Currently a work in progress.
 
 # Architecture
 Stock talk is made up of three services.

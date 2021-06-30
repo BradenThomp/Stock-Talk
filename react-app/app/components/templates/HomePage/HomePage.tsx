@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { GET_STOCK_SENTIMENT } from "../../../api/apollo-client";
 import { makeStyles } from '@material-ui/core/styles';
-import SortableTable from "../../elements/SortableTableWithLinks";
-import { Column, LinkableRow } from "../../elements/SortableTableWithLinks";
+import ApplicationTable from "../../elements/ApplicationTable";
+import { Column, LinkableRow } from "../../elements/ApplicationTable";
 import { useState } from "react";
 import TimePeriodSelection, { Period } from "../../elements/TimePeriodSelection";
 import SubredditSelection from "../../elements/SubredditSelection";
@@ -59,7 +59,7 @@ export default function HomePage(){
     <div>
       <TimePeriodSelection period={numDays} updatePeriod={setNumDays}/>
       <SubredditSelection subreddits={subreddits} updateSubreddits={setSubreddits}/>
-      <SortableTable rows={linkableRows} columns={columns} order={order} setOrder={setOrder} orderBy={orderBy} setOrderBy={setOrderBy}/>
+      <ApplicationTable rows={linkableRows} columns={columns} order={order} setOrder={setOrder} orderBy={orderBy} setOrderBy={setOrderBy}/>
     </div>
   );
 }

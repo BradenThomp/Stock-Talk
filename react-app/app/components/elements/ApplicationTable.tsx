@@ -66,7 +66,7 @@ function stableSort(rows: LinkableRow[], comparator) {
   return stabilizedThis.map((row) => row[0]);
 }
 
-export default function SortableTableWithLinks(props: Props){
+export default function ApplicationTable(props: Props){
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -103,20 +103,24 @@ export default function SortableTableWithLinks(props: Props){
           </TableHead>
           <TableBody>
             {stableSort(props.rows, getComparator(props.order, props.orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => {
-              return (
-                <Link href={row.link} passHref>
-                  <TableRow hover>
-                      {props.columns.map((column: Column) => {
-                        const value = row.data[column.key];
-                        return(
-                          <TableCell key={column.key}>
-                            {value}
-                          </TableCell>
-                        );
-                      })}
-                  </TableRow>
-                </Link>
+              let result = (
+                <TableRow hover>
+                  {props.columns.map((column: Column) => {
+                    const value = row.data[column.key];
+                    return(
+                      <TableCell key={column.key}>
+                        {value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
               );
+              if(row.link != undefined){
+                result = (
+                  <Link href={row.link} passHref>{result}</Link>
+                )
+              }
+              return result;
             })}
           </TableBody>
         </Table>

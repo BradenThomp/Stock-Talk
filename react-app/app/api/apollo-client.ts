@@ -18,3 +18,17 @@ export const GET_STOCK_SENTIMENT = gql`
     }
   }
 `;
+
+export const GET_STOCK_REPORTS = gql`
+  query DailyStockReport($ticker: String!){
+    DailyStockReport(ticker: $ticker){
+      ticker,
+      location,
+      date,
+      numComments,
+      score,
+      avgCompound,
+      sentiment
+    }
+  }
+`;

@@ -2,10 +2,11 @@ import { useQuery } from "@apollo/client";
 import { GET_STOCK_SENTIMENT } from "../../../api/apollo-client";
 import { makeStyles } from '@material-ui/core/styles';
 import ApplicationTable from "../../elements/ApplicationTable";
-import { Column, LinkableRow } from "../../elements/ApplicationTable";
+import { Column, Row } from "../../elements/ApplicationTable";
 import { useState } from "react";
 import TimePeriodSelection, { Period } from "../../elements/TimePeriodSelection";
 import SubredditSelection from "../../elements/SubredditSelection";
+import Link from 'next/link'
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
 })
 
 const columns:Column[] = [
-  {key: 'ticker', label:'Ticker'},
+  {key: 'ticker', label:'Ticker', render:row=>(<Link href={'/stock/' + row.id}>{row.id}</Link>)},
   {key: 'totalNumberOfMentions', label:'Comments'},
   {key: 'totalScore', label:'Upvotes'},
   {key: 'sentiment', label:'Sentiment'},
@@ -47,19 +48,18 @@ export default function HomePage(){
     )
   }
 
-  const rows = data.StockSentiment;
-  const linkableRows = rows.map(row => {
-    const linkableRow: LinkableRow = {
-      data: row,
-      link: '/stock/' + row['ticker'],
+  const rows = data.StockSentiment.map(rawRow => {
+    const row: Row = {
+      data: rawRow,
+      id: rawRow.ticker,
     } 
-    return linkableRow;
+    return row;
   });
   return(
     <div>
       <TimePeriodSelection period={numDays} updatePeriod={setNumDays}/>
       <SubredditSelection subreddits={subreddits} updateSubreddits={setSubreddits}/>
-      <ApplicationTable rows={linkableRows} columns={columns} order={order} setOrder={setOrder} orderBy={orderBy} setOrderBy={setOrderBy}/>
+      <ApplicationTable rows={rows} columns={columns} order={order} setOrder={setOrder} orderBy={orderBy} setOrderBy={setOrderBy}/>
     </div>
   );
 }

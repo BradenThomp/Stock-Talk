@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { GET_STOCK_REPORTS, GET_STOCK_SENTIMENT } from "../../../api/apollo-client";
-import ApplicationTable, { Column, LinkableRow } from "../../elements/ApplicationTable";
+import ApplicationTable, { Column, Row } from "../../elements/ApplicationTable";
 
 
 interface Props {
@@ -40,18 +40,17 @@ export default function StockPage(props: Props){
     )
   }
 
-  const rows = data.DailyStockReport;
-  const linkableRows = rows.map(row => {
-    const linkableRow: LinkableRow = {
-      data: JSON.parse(JSON.stringify(row)),
-      link: null,
+  const rows = data.DailyStockReport.map(rawRow => {
+    const row: Row = {
+      data: JSON.parse(JSON.stringify(rawRow)),
+      id: rawRow.ticker,
     } 
-    linkableRow.data.date = row.date.split('T')[0];
-    return linkableRow;
+    row.data.date = rawRow.date.split('T')[0];
+    return row;
   });
   return(
     <div>
-      <ApplicationTable rows={linkableRows} columns={columns} order={order} setOrder={setOrder} orderBy={orderBy} setOrderBy={setOrderBy}/>
+      <ApplicationTable rows={rows} columns={columns} order={order} setOrder={setOrder} orderBy={orderBy} setOrderBy={setOrderBy}/>
     </div>
   );
 }

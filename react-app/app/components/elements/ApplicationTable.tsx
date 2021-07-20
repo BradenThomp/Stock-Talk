@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { TablePagination, TableSortLabel } from "@material-ui/core";
-import Link from 'next/link';
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles({
 
 interface Props{
   readonly columns: Column[];
-  readonly rows: LinkableRow[];
+  readonly rows: Row[];
   readonly order: any,
   readonly setOrder: any,
   readonly orderBy: any,
@@ -31,11 +30,12 @@ interface Props{
 export interface Column{
   key: any;
   label: any;
+  render?: (row: Row) => ReactNode;
 }
 
-export interface LinkableRow{
-  link: any;
+export interface Row{
   data: any;
+  id: String;
 }
 
 function descendingComparator(a, b, orderBy) {
@@ -50,11 +50,11 @@ function descendingComparator(a, b, orderBy) {
 
 function getComparator(order:'asc'|'desc', orderBy) {
   return order === 'desc'
-    ? (a:LinkableRow, b:LinkableRow) => descendingComparator(a.data, b.data, orderBy)
-    : (a:LinkableRow, b:LinkableRow) => -descendingComparator(a.data, b.data, orderBy);
+    ? (a:Row, b:Row) => descendingComparator(a.data, b.data, orderBy)
+    : (a:Row, b:Row) => -descendingComparator(a.data, b.data, orderBy);
 }
 
-function stableSort(rows: LinkableRow[], comparator) {
+function stableSort(rows: Row[], comparator) {
   const stabilizedThis = rows.map((row, index) => [row, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -102,25 +102,22 @@ export default function ApplicationTable(props: Props){
             </TableRow>
           </TableHead>
           <TableBody>
-            {stableSort(props.rows, getComparator(props.order, props.orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => {
-              let result = (
+            {stableSort(props.rows, getComparator(props.order, props.orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: Row) => {
+              return (
                 <TableRow hover>
                   {props.columns.map((column: Column) => {
-                    const value = row.data[column.key];
+                    let renderedData = row.data[column.key];
+                    if(column.render != null) {
+                      renderedData = column.render(row);
+                    }
                     return(
                       <TableCell key={column.key}>
-                        {value}
+                        {renderedData}
                       </TableCell>
                     );
                   })}
                 </TableRow>
               );
-              if(row.link != undefined){
-                result = (
-                  <Link href={row.link} passHref>{result}</Link>
-                )
-              }
-              return result;
             })}
           </TableBody>
         </Table>
